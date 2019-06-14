@@ -341,8 +341,13 @@ int vfio_display_probe(VFIOPCIDevice *vdev, Error **errp)
         return 0;
     }
 
-    error_setg(errp, "vfio: device doesn't support any (known) display method");
-    return -1;
+    fprintf(stderr, "%s (modified ending)\n", __func__);
+    vdev->dpy = g_new0(VFIODisplay, 1);
+    vdev->dpy->con = graphic_console_init(DEVICE(vdev), 0,
+                                          &vfio_display_dmabuf_ops,
+                                          vdev);
+    //error_setg(errp, "vfio: device doesn't support any (known) display method");
+    return 0;
 }
 
 void vfio_display_finalize(VFIOPCIDevice *vdev)

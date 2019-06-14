@@ -1305,6 +1305,18 @@ debug a Linux kernel with a serial console. Use @key{C-a h} for help on
 switching between the console and monitor.
 ETEXI
 
+DEF("hidconsole", 0, QEMU_OPTION_hidconsole,
+    "-hidconsole     opens up a console for keyboard and mouse input\n",
+    QEMU_ARCH_ALL)
+STEXI
+@item -hidconsole
+@findex -hidconsole
+Opens a tab in the monitor window for capturing keyboard and mouse input
+to pass to emulated system. This is useful with GPU passthrough with no
+emulated graphical device.
+ETEXI
+
+
 DEF("curses", 0, QEMU_OPTION_curses,
     "-curses         shorthand for -display curses\n",
     QEMU_ARCH_ALL)

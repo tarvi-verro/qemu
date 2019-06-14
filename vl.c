@@ -2931,6 +2931,7 @@ int main(int argc, char **argv, char **envp)
     const char *incoming = NULL;
     bool userconfig = true;
     bool nographic = false;
+    bool hidconsole = false;
     int display_remote = 0;
     const char *log_mask = NULL;
     const char *log_file = NULL;
@@ -3128,6 +3129,9 @@ int main(int argc, char **argv, char **envp)
                 qemu_opts_parse_noisily(olist, "graphics=off", false);
                 nographic = true;
                 dpy.type = DISPLAY_TYPE_NONE;
+                break;
+            case QEMU_OPTION_hidconsole:
+                hidconsole = true;
                 break;
             case QEMU_OPTION_curses:
 #ifdef CONFIG_CURSES
@@ -4220,6 +4224,10 @@ int main(int argc, char **argv, char **envp)
             monitor_parse("vc:80Cx24C", "readline", false);
         if (default_virtcon)
             add_device_config(DEV_VIRTCON, "vc:80Cx24C");
+    }
+
+    if (hidconsole) {
+        fprintf(stderr, "%s hidconsole y\n", __func__);
     }
 
 #if defined(CONFIG_VNC)
